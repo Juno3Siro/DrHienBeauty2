@@ -1,272 +1,197 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dr. Hiền Beauty — Full Deep Spa</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-
-  <!-- Local CSS -->
-  <link rel="stylesheet" href="style.css?v=final">
-  <meta name="theme-color" content="#3f3328">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà Nấm Nem - Nấm Hữu Cơ Tự Nhiên</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Header -->
-  <header id="site-header" class="transparent" role="banner">
-    <div class="wrap header-row">
-      <div class="brand logo-text"><span class="gold">Dr.</span> Hiền Beauty</div>
-      <nav class="nav" aria-label="Main Navigation">
-        <a href="#home">Trang chủ</a>
-        <a href="#about">Giới thiệu</a>
-        <a href="#services">Dịch vụ</a>
-        <a href="#testimonials">Khách hàng</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Liên hệ</a>
-      </nav>
-      <button class="menu-btn" id="menuBtn" aria-label="Mở menu"><i class="fa fa-bars"></i></button>
-    </div>
-  </header>
+    <header id="site-header">
+        <div class="wrap header-row">
+            <a href="#" class="brand logo-text"><span class="gold">Nhà</span>Nấm Nem</a>
+            <nav class="nav">
+                <a href="#" class="active">Trang Chủ</a>
+                <a href="#products">Sản Phẩm</a>
+                <a href="#contact">Liên Hệ</a>
+                <a href="#" id="cart-icon" aria-label="Giỏ hàng">
+                    🛒 <span id="cart-count">0</span>
+                </a>
+            </nav>
+            <button class="menu-btn" aria-label="Open Menu">☰</button>
+        </div>
+    </header>
 
-  <!-- Mobile nav -->
-  <div id="mobileNav" class="mobile-nav" aria-hidden="true">
-    <a href="#home">Trang chủ</a>
-    <a href="#about">Giới thiệu</a>
-    <a href="#services">Dịch vụ</a>
-    <a href="#testimonials">Khách hàng</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Liên hệ</a>
-  </div>
+    <nav class="mobile-nav">
+        <a href="#">Trang Chủ</a>
+        <a href="#products">Sản Phẩm</a>
+        <a href="#contact">Liên Hệ</a>
+    </nav>
 
-  <!-- Hero -->
-  <section id="home" class="hero" aria-label="Hero">
-    <div class="hero-inner" data-aos="fade-up" data-aos-duration="900">
-      <h1 class="hero-title">Vẻ đẹp tự nhiên — Sang trọng đích thực</h1>
-      <p class="hero-sub">Dr. Hiền Beauty kết hợp công nghệ hiện đại và liệu pháp tinh tế để tôn vinh làn da của bạn.</p>
-      <div class="hero-cta" data-aos="fade-up" data-aos-delay="240">
-        <a class="btn primary" href="#contact">Đặt lịch ngay</a>
-        <a class="btn ghost" href="#services">Xem dịch vụ</a>
+    <main>
+        <section class="hero" style="background-image: url('https://drive.google.com/uc?export=view&id=1QIcM5SJhZi-lG_pzRo4YOz3AlwUoDD_Z');">
+            <div class="hero-inner">
+                <h1 class="hero-title">Sạch Lành Tự Nhiên, Chuẩn Ngon Vị Việt</h1>
+                <p class="hero-sub">Nấm hữu cơ được nuôi trồng với tâm huyết, mang đến những bữa ăn bổ dưỡng cho gia đình bạn.</p>
+                <div class="hero-cta">
+                    <a href="#products" class="btn primary">Xem Sản Phẩm</a>
+                    <a href="#" class="btn ghost">Câu Chuyện Của Nấm</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="section bg-soft">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>Sản Phẩm Nổi Bật</h2>
+                    <p>Những sản phẩm tinh túy từ trang trại nấm hữu cơ của Nhà Nấm Nem.</p>
+                </div>
+                <div class="cards" id="product-list">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="wrap">
+                 <div class="section-head">
+                    <h2>Liên Hệ & Đặt Hàng</h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Ghé thăm chúng tôi</h3>
+                        <p>Trang trại: Thôn ABC, Xã XYZ, Đà Lạt, Lâm Đồng</p>
+                        <p>Email: info@nhanamnem.vn</p>
+                        <p>Hotline: 0912 345 678</p>
+                        <div class="socials">
+                            <a href="#">f</a> <a href="#">i</a> <a href="#">z</a>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <h3>Gửi tin nhắn cho chúng tôi</h3>
+                        <input type="text" placeholder="Họ tên" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea rows="5" placeholder="Nội dung tin nhắn"></textarea>
+                        <button type="submit" class="btn primary">Gửi đi</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-row">
+            <a href="#" class="brand small">© 2025 Nhà Nấm Nem</a>
+            <nav class="nav">
+                <a href="#">Chính sách</a>
+                <a href="#">Điều khoản</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Cart Modal using a simple div for more control -->
+    <div id="cart-modal" class="cart-modal-overlay" style="display: none;">
+      <div class="cart-modal-content">
+        <header class="cart-modal-header">
+          <h2>Giỏ hàng của bạn</h2>
+          <button id="close-modal-btn" class="close-modal-btn" aria-label="Close cart">×</button>
+        </header>
+        <div id="cart-items" class="cart-items-container">
+          <!-- Cart items will be injected here -->
+        </div>
+        <footer class="cart-modal-footer">
+          <p class="cart-total"><strong>Tổng cộng: <span id="cart-total">0</span>đ</strong></p>
+          <button id="checkout-btn" class="btn primary">Thanh toán</button>
+        </footer>
       </div>
     </div>
-  </section>
 
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Giới thiệu</h2><p>Chăm sóc da chuẩn y khoa, liệu trình cá nhân hoá và dịch vụ tận tâm.</p></div>
-      <div class="about-grid">
-        <div class="about-media" data-aos="fade-up" data-aos-delay="120">
-          <img src="https://images.pexels.com/photos/3771083/pexels-photo-3771083.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="spa">
-        </div>
-        <div class="about-content" data-aos="fade-left" data-aos-delay="240">
-          <h3>Tận tâm — Chuyên nghiệp — Hiệu quả</h3>
-          <p>Đội ngũ chuyên viên & bác sĩ thẩm mỹ được đào tạo, cam kết an toàn và kết quả.</p>
-          <ul class="features">
-            <li>Liệu trình cá nhân hoá</li>
-            <li>Thiết bị y khoa hiện đại</li>
-            <li>Hậu mãi chu đáo</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="section bg-soft">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Dịch vụ nổi bật</h2></div>
-      <div class="cards">
-        <article class="card" data-aos="zoom-in" data-aos-delay="100">
-          <div class="card-media"><img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Chăm sóc da"></div>
-          <div class="card-body">
-            <h4>Chăm sóc da chuyên sâu</h4>
-            <p>Liệu trình phục hồi và tái tạo giúp làn da trẻ trung, săn chắc.</p>
-          </div>
-        </article>
-
-        <article class="card" data-aos="zoom-in" data-aos-delay="180">
-          <div class="card-media"><img src="https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Điều trị nám"></div>
-          <div class="card-body">
-            <h4>Điều trị nám &amp; tàn nhang</h4>
-            <p>Phương pháp an toàn, giảm sắc tố hiệu quả theo từng liệu trình.</p>
-          </div>
-        </article>
-
-        <article class="card" data-aos="zoom-in" data-aos-delay="260">
-          <div class="card-media"><img src="https://images.pexels.com/photos/374713/pexels-photo-374713.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Massage"></div>
-          <div class="card-body">
-            <h4>Liệu pháp thư giãn &amp; massage</h4>
-            <p>Giúp thư giãn cơ thể, cải thiện tuần hoàn và giảm stress.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonials" class="section">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Khách hàng nói gì</h2><p>Những lời nhận xét chân thực từ khách hàng của chúng tôi.</p></div>
-      <div class="testimonials" data-aos="fade-up" data-aos-delay="120">
-        <div class="testimonial-card">
-          <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200" alt="kh1">
-          <blockquote>"Da tôi sáng hơn sau 2 tuần! Đội ngũ cực kỳ tận tâm."</blockquote>
-          <p class="t-name">— Minh H.</p>
-        </div>
-        <div class="testimonial-card">
-          <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=200" alt="kh2">
-          <blockquote>"Không đau, an toàn và kết quả rõ rệt."</blockquote>
-          <p class="t-name">— Lan P.</p>
-        </div>
-        <div class="testimonial-card">
-          <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200" alt="kh3">
-          <blockquote>"Phòng ốc sạch sẽ, nhân viên chuyên nghiệp. Rất hài lòng."</blockquote>
-          <p class="t-name">— Hương V.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blog -->
-  <section id="blog" class="section bg-soft">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Tin tức &amp; Blog</h2></div>
-      <div class="cards blog-cards">
-        <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-          <img src="https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="">
-          <div class="blog-body">
-            <h4>Bí quyết chăm sóc da mùa đông</h4>
-            <p>Giữ ẩm và tăng cường bảo vệ làn da trước khí hậu khô hanh.</p>
-          </div>
-        </article>
-        <article class="blog-card" data-aos="fade-up" data-aos-delay="180">
-          <img src="https://images.pexels.com/photos/34592/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1000" alt="">
-          <div class="blog-body">
-            <h4>Công nghệ laser làm đẹp</h4>
-            <p>Các bước cơ bản và lưu ý trước &amp; sau điều trị.</p>
-          </div>
-        </article>
-        <article class="blog-card" data-aos="fade-up" data-aos-delay="260">
-          <img src="https://images.pexels.com/photos/3760252/pexels-photo-3760252.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="">
-          <div class="blog-body">
-            <h4>Chăm sóc da sau peel</h4>
-            <p>Hướng dẫn giúp da phục hồi nhanh và an toàn.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Liên hệ</h2></div>
-      <div class="contact-grid">
-        <form class="contact-form" data-aos="fade-up" data-aos-delay="120" onsubmit="event.preventDefault(); alert('Cảm ơn! Chúng tôi sẽ liên hệ lại bạn.');">
-          <input type="text" placeholder="Họ và tên" required>
-          <input type="email" placeholder="Email" required>
-          <input type="tel" placeholder="Số điện thoại">
-          <textarea rows="5" placeholder="Nội dung"></textarea>
-          <button class="btn primary" type="submit">Gửi liên hệ</button>
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="cart-modal-overlay" style="display: none;">
+      <div class="cart-modal-content">
+        <header class="cart-modal-header">
+          <h2>Thông tin giao hàng</h2>
+          <button id="close-checkout-modal-btn" class="close-modal-btn" aria-label="Close checkout">×</button>
+        </header>
+        <form id="checkout-form">
+            <div class="form-group">
+                <label for="customer-name">Họ và tên</label>
+                <input type="text" id="customer-name" required>
+            </div>
+            <div class="form-group">
+                <label for="customer-phone">Số điện thoại</label>
+                <input type="tel" id="customer-phone" required>
+            </div>
+            <div class="form-group">
+                <label for="customer-address">Địa chỉ</label>
+                <input type="text" id="customer-address" required>
+            </div>
+            <div class="form-group">
+                <label for="delivery-time">Thời gian giao hàng</label>
+                <input type="text" id="delivery-time" placeholder="Càng sớm càng tốt, hoặc ghi rõ giờ">
+            </div>
+             <div class="form-group">
+                <label for="customer-notes">Ghi chú</label>
+                <textarea id="customer-notes" rows="3"></textarea>
+            </div>
+            <footer class="cart-modal-footer">
+                <button type="submit" class="btn primary">Xác nhận đơn hàng</button>
+            </footer>
         </form>
-
-        <div class="contact-info" data-aos="fade-left" data-aos-delay="240">
-          <h4>Dr. Hiền Beauty</h4>
-          <p>Địa chỉ: Quận Hoàn Kiếm, Hà Nội (ví dụ)</p>
-          <p>Hotline: 0123 456 789</p>
-          <div class="socials">
-            <a href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="zalo"><i class="fa fa-comment-dots"></i></a>
-          </div>
-          <div class="map-wrap">
-            <iframe title="map" src="https://www.google.com/maps?q=21.028511,105.804817&z=15&output=embed" loading="lazy"></iframe>
-          </div>
-        </div>
       </div>
     </div>
-  </section>
 
-  <!-- Partners / Credentials -->
-  <section class="section bg-soft">
-    <div class="wrap">
-      <div class="section-head" data-aos="fade-right"><h2>Đối tác & Chứng nhận</h2></div>
-      <div class="partners" data-aos="fade-up">
-        <img src="https://images.pexels.com/photos/3182749/pexels-photo-3182749.jpeg?auto=compress&cs=tinysrgb&w=400" alt="logo1">
-        <img src="https://images.pexels.com/photos/5857502/pexels-photo-5857502.jpeg?auto=compress&cs=tinysrgb&w=400" alt="logo2">
-        <img src="https://images.pexels.com/photos/3771078/pexels-photo-3771078.jpeg?auto=compress&cs=tinysrgb&w=400" alt="logo3">
-        <img src="https://images.pexels.com/photos/373576/pexels-photo-373576.jpeg?auto=compress&cs=tinysrgb&w=400" alt="logo4">
-      </div>
-    </div>
-  </section>
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productList = document.getElementById('product-list');
+            if (productList && typeof products !== 'undefined') {
+                products.forEach(product => {
+                    const card = document.createElement('article');
+                    card.className = 'card';
+                    card.dataset.id = product.id;
+                    card.dataset.name = product.name;
+                    card.dataset.price = product.price;
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="wrap footer-row">
-      <div class="f-left">
-        <div class="brand small logo-text"><span class="gold">Dr.</span> Hiền Beauty</div>
-        <p>© 2025 Dr. Hiền Beauty — Tất cả các quyền được bảo lưu.</p>
-      </div>
-      <div class="f-right">
-        <div class="socials">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fa fa-comment-dots"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
+                    card.innerHTML = `
+                        <div class="card-media">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="card-body">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <p><strong>Giá: ${product.price.toLocaleString('vi-VN')}đ</strong></p>
+                            <button class="btn primary add-to-cart">Thêm vào giỏ</button>
+                        </div>
+                    `;
+                    productList.appendChild(card);
+                });
+            }
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, duration: 750 });
+            // Simple script for mobile menu and header scroll effect
+            const header = document.getElementById('site-header');
+            const menuBtn = document.querySelector('.menu-btn');
+            const mobileNav = document.querySelector('.mobile-nav');
 
-    // Sticky header color change + scrollspy highlight
-    const header = document.getElementById('site-header');
-    const navLinks = document.querySelectorAll('.nav a');
-    const sections = document.querySelectorAll('section[id]');
-    function onScroll(){
-      if(window.scrollY > 70) header.classList.add('solid'); else header.classList.remove('solid');
-      let fromTop = window.scrollY + 120;
-      sections.forEach(section => {
-        if(section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop){
-          navLinks.forEach(l => l.classList.remove('active'));
-          const link = document.querySelector('.nav a[href="#' + section.id + '"]');
-          if(link) link.classList.add('active');
-        }
-      });
-    }
-    window.addEventListener('scroll', onScroll);
-    onScroll();
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('solid');
+                    header.classList.remove('transparent');
+                } else {
+                    header.classList.add('transparent');
+                    header.classList.remove('solid');
+                }
+            });
 
-    // Mobile nav toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    menuBtn.addEventListener('click', () => {
-      mobileNav.classList.toggle('open');
-      const expanded = mobileNav.classList.contains('open');
-      menuBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      mobileNav.setAttribute('aria-hidden', expanded ? 'false' : 'true');
-    });
-    // Close mobile nav on link click
-    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
-
-    // Smooth internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        mobileNav.classList.remove('open');
-      });
-    });
-  </script>
+            menuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>
