@@ -3,7 +3,7 @@ const products = [
         id: 1,
         name: "Nấm Tươi Hữu Cơ",
         price: 50000,
-        image: "https://images.unsplash.com/photo-1576402187870-974f1a1e2e9a?auto=format&fit=crop&w=800&q=80",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9Ewk1L5GSOyOrbP-lCykUSM5ccBihf_mCxg&s",
         description: "Nấm bào ngư, nấm đùi gà, nấm hương – thu hoạch mỗi ngày, giữ trọn vị tươi ngon."
     },
     {
