@@ -76,8 +76,10 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 .features li{margin-bottom:8px}
 
 /* Cards */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
-.card{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.9,.3,1),box-shadow .32s;position: relative;}
+/* Vô hiệu hóa layout grid cũ cho trang chủ */
+/* .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px} */
+
+.card{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.9,.3,1),box-shadow .32s;position: relative; }
 .card:hover{transform:translateY(-12px);box-shadow:0 30px 60px rgba(0,0,0,.14);z-index: 10;}
 .card-media{background-color:var(--soft); border-radius: 12px 12px 0 0; overflow: hidden;}
 .card-media img{width:100%;height:220px;object-fit:contain}
@@ -469,4 +471,35 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Product Carousel Styles */
+.product-carousel-viewport {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.product-carousel-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 26px;
+  /* Animation sẽ được thêm bằng JS */
+}
+
+.product-carousel-track .card {
+  flex-shrink: 0;
+  width: 300px; /* Chiều rộng cố định cho mỗi thẻ sản phẩm */
+}
+
+@keyframes scroll-horizontal {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Dịch chuyển sang trái bằng đúng một nửa chiều rộng của track */
+    transform: translateX(-50%);
+  }
 }

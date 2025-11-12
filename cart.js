@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     updateCart();
+
+    // Không cần return true ở đây, vì main.js sẽ xử lý phản hồi trực quan
   };
 
   const updateCart = () => {
@@ -175,20 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  // --- Event Listeners ---
-  if(productList) {
-    productList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('add-to-cart')) {
-            const card = e.target.closest('.card');
-            if (card && card.dataset.id) {
-              addProductById(card.dataset.id);
-              e.target.textContent = 'Đã thêm!';
-              setTimeout(() => { e.target.textContent = 'Thêm vào giỏ'; }, 1000);
-            }
-        }
-    });
-  }
-
   if(productModal) {
     productModal.addEventListener('click', (e) => {
       if (e.target.classList.contains('add-to-cart')) {
@@ -244,6 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
   checkoutModal.addEventListener('click', (e) => {
     if (e.target === checkoutModal) closeCheckoutModal();
   });
+
+  // Expose addProductById globally for main.js to use
+  window.addProductById = addProductById;
 
   checkoutForm.addEventListener('submit', confirmOrder);
 

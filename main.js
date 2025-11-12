@@ -1,109 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-            const productList = document.getElementById('product-list');
-            const heroSection = document.querySelector('.hero');
+    const productList = document.getElementById('product-list');
+    const heroSection = document.querySelector('.hero');
 
             // Set hero banner
             if (heroSection && typeof bannerImage !== 'undefined') {
                 heroSection.style.backgroundImage = `url('${bannerImage}')`;
             }
 
-            // --- Delegated Image Zoom Logic ---
-            function moveLens(e) {
-                const lens = e.currentTarget.querySelector('.img-zoom-lens');
-                const result = e.currentTarget.parentElement.querySelector('.img-zoom-result');
-                const img = e.currentTarget.querySelector('img');
-                if (!lens || !result || !img) return;
+            // --- Product Carousel Logic ---
+            const setupProductCarousel = () => {
+                if (!productList || typeof products === 'undefined' || products.length === 0) return;
 
-                e.preventDefault();
-                
-                const pos = getCursorPos(e, img);
-                let x = pos.x - (lens.offsetWidth / 2);
-                let y = pos.y - (lens.offsetHeight / 2);
+                // 1. Chọn 8 sản phẩm ngẫu nhiên
+                const randomProducts = [...products].sort(() => 0.5 - Math.random()).slice(0, 8);
 
-                if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
-                if (x < 0) { x = 0; }
-                if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
-                if (y < 0) { y = 0; }
+                // 2. Nhân đôi danh sách để tạo hiệu ứng lặp vô tận
+                const carouselItems = [...randomProducts, ...randomProducts];
 
-                lens.style.left = x + "px";
-                lens.style.top = y + "px";
-
-                const cx = result.offsetWidth / lens.offsetWidth;
-                const cy = result.offsetHeight / lens.offsetHeight;
-                result.style.backgroundPosition = `-${x * cx}px -${y * cy}px`;
-            }
-
-            function getCursorPos(e, img) {
-                const a = img.getBoundingClientRect();
-                const x = e.pageX - a.left - window.pageXOffset;
-                const y = e.pageY - a.top - window.pageYOffset;
-                return { x, y };
-            }
-
-            productList.addEventListener('mouseover', (e) => {
-                if (window.innerWidth < 1024) return; // Only on desktop
-                const cardMedia = e.target.closest('.card-media');
-                if (!cardMedia) return;
-
-                // Avoid re-creating elements if they exist
-                let result = cardMedia.parentElement.querySelector('.img-zoom-result');
-                if (!result) {
-                    result = document.createElement("DIV");
-                    result.setAttribute("class", "img-zoom-result");
-                    cardMedia.parentElement.appendChild(result);
-                }
-
-                let lens = cardMedia.querySelector('.img-zoom-lens');
-                if (!lens) {
-                    lens = document.createElement("DIV");
-                    lens.setAttribute("class", "img-zoom-lens");
-                    cardMedia.insertBefore(lens, cardMedia.firstChild);
-                }
-                
-                const img = cardMedia.querySelector('img');
-                result.style.display = 'block';
-                lens.style.display = 'block';
-                
-                result.style.backgroundImage = `url('${img.src}')`;
-                const cx = result.offsetWidth / lens.offsetWidth;
-                const cy = result.offsetHeight / lens.offsetHeight;
-                result.style.backgroundSize = `${img.width * cx}px ${img.height * cy}px`;
-
-                cardMedia.addEventListener('mousemove', moveLens);
-            });
-
-            productList.addEventListener('mouseout', (e) => {
-                if (window.innerWidth < 1024) return;
-                const cardMedia = e.target.closest('.card-media');
-                if (!cardMedia) return;
-
-                const result = cardMedia.parentElement.querySelector('.img-zoom-result');
-                const lens = cardMedia.querySelector('.img-zoom-lens');
-
-                if (result) result.style.display = 'none';
-                if (lens) lens.style.display = 'none';
-                
-                cardMedia.removeEventListener('mousemove', moveLens);
-            });
-
-
-            // Render product cards
-            if (productList && typeof products !== 'undefined') {
-                products.forEach(product => {
+                // 3. Render các sản phẩm vào track
+                productList.innerHTML = ''; // Xóa nội dung cũ
+                carouselItems.forEach(product => {
                     const card = document.createElement('article');
-                    // Add 'view-details' to the main card element
-                    card.className = 'card view-details'; 
+                    card.className = 'card view-details';
                     card.dataset.id = product.id;
-                    card.dataset.name = product.name;
-                    card.dataset.price = product.price;
                     card.dataset.productId = product.id;
 
-                    // Use the first image for the card
                     const imageUrl = (product.images && product.images.length > 0) ? product.images[0] : 'image/placeholder.jpg';
 
                     card.innerHTML = `
                         <div class="card-media">
-                            <img src="${imageUrl}" alt="${product.name}">
+                            <img src="${imageUrl}" alt="${product.name}" loading="lazy">
                         </div>
                         <div class="card-body">
                             <h3>${product.name}</h3>
@@ -114,7 +40,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     productList.appendChild(card);
                 });
-            }
+
+                // Thêm event listener cho từng card để dừng animation khi hover
+                const cards = productList.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        productList.style.animationPlayState = 'paused';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        // Chỉ chạy lại nếu modal không mở
+                        if (!isModalOpen) {
+                            productList.style.animationPlayState = 'running';
+                        }
+                    });
+                });
+
+                // 4. Áp dụng animation
+                const totalWidth = (300 + 26) * randomProducts.length; // (card_width + gap) * number_of_items
+                const animationDuration = randomProducts.length * 4; // 4 giây cho mỗi sản phẩm
+
+                productList.style.width = `${totalWidth * 2}px`;
+                productList.style.animation = `scroll-horizontal ${animationDuration}s linear infinite`;
+            };
+
+            setupProductCarousel();
 
             // --- Product Detail Modal Logic ---
             const productModal = document.getElementById('product-detail-modal');
@@ -129,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let currentProductImages = [];
             let currentImageIndex = 0;
+            let isModalOpen = false; // Biến cờ để theo dõi trạng thái modal
 
             const openProductModal = (productId) => {
                 const product = products.find(p => p.id === parseInt(productId));
@@ -162,6 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                 productModal.style.display = 'flex';
+                isModalOpen = true; // Đặt cờ là true khi modal mở
+                // Dừng carousel khi modal mở
+                if (productList.style.animationPlayState !== 'paused') {
+                    productList.style.animationPlayState = 'paused';
+                }
             };
 
             const updateModalImage = () => {
@@ -177,19 +132,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextBtn.style.display = currentProductImages.length > 1 && currentImageIndex < currentProductImages.length - 1 ? 'block' : 'none';
             };
 
+            // Centralized click listener for productList (carousel track)
             productList.addEventListener('click', (e) => {
                 const viewDetailsTrigger = e.target.closest('.view-details');
-                // Do not open modal if the click was on a zoom-related element or add-to-cart button
-                if (viewDetailsTrigger && !e.target.closest('.img-zoom-lens') && !e.target.closest('.add-to-cart')) {
+                if (!viewDetailsTrigger) return; // Click was not on a product card
+
+                if (e.target.classList.contains('add-to-cart')) {
+                    // Clicked "Thêm vào giỏ" button
+                    const card = e.target.closest('.card');
+                    if (card && card.dataset.id && window.addProductById) { // Check if addProductById is available
+                        window.addProductById(card.dataset.id);
+                        e.target.textContent = 'Đã thêm!';
+                        productList.style.animationPlayState = 'paused'; // Pause carousel
+                        setTimeout(() => {
+                            e.target.textContent = 'Thêm vào giỏ';
+                            productList.style.animationPlayState = 'running'; // Resume carousel
+                        }, 1000);
+                    }
+                } else {
+                    // Clicked on the card but not the "Thêm vào giỏ" button, so open modal
                     const productId = viewDetailsTrigger.dataset.productId;
                     openProductModal(productId);
                 }
             });
+            closeModalBtn.addEventListener('click', () => {
+                productModal.style.display = 'none';
+                isModalOpen = false; // Đặt cờ là false khi modal đóng
+                // Chạy lại carousel khi đóng modal
+                productList.style.animationPlayState = 'running';
+            });
 
-            closeModalBtn.addEventListener('click', () => productModal.style.display = 'none');
             productModal.addEventListener('click', (e) => {
                 if (e.target === productModal) {
                     productModal.style.display = 'none';
+                    isModalOpen = false; // Đặt cờ là false khi modal đóng
+                    // Chạy lại carousel khi đóng modal
+                    productList.style.animationPlayState = 'running';
                 }
             });
 
@@ -213,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateModalImage();
                 }
             });
-
 
             // --- Mobile Menu Logic ---
             const header = document.getElementById('site-header');
