@@ -267,7 +267,8 @@
             if (productList && typeof products !== 'undefined') {
                 products.forEach(product => {
                     const card = document.createElement('article');
-                    card.className = 'card';
+                    // Add 'view-details' to the main card element
+                    card.className = 'card view-details'; 
                     card.dataset.id = product.id;
                     card.dataset.name = product.name;
                     card.dataset.price = product.price;
@@ -277,7 +278,7 @@
                     const imageUrl = (product.images && product.images.length > 0) ? product.images[0] : 'image/placeholder.jpg';
 
                     card.innerHTML = `
-                        <div class="card-media view-details" data-product-id="${product.id}">
+                        <div class="card-media">
                             <img src="${imageUrl}" alt="${product.name}">
                         </div>
                         <div class="card-body">

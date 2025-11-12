@@ -23,7 +23,7 @@ const products = [
         id: 3,
         name: "Bột Nấm Dinh Dưỡng",
         price: 120000,
-        images: ["image/0cb285f7258ca9d2f09d7.jpg"],
+        images: ["image/1fa83c009c7b1025496a2.jpg"],
         description: "Giàu vitamin và khoáng chất – lựa chọn lành mạnh để nấu ăn hoặc pha chế."
     },
     {
