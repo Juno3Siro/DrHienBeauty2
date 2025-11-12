@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nhà Nấm Nem - Nấm hữu cơ tự nhiên, sạch lành, chuẩn vị Việt. Đặt hàng nấm tươi, giò nấm, nem nấm, bột nấm dinh dưỡng.">
-    <title>Nhà Nấm Nem - Nấm Hữu Cơ Tự Nhiên</title>
+    <meta name="description" content="Tất cả sản phẩm từ Nhà Nấm Nem - Nấm hữu cơ tự nhiên, sạch lành, chuẩn vị Việt.">
+    <title>Sản Phẩm - Nhà Nấm Nem</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="products-page">
 
     <header id="site-header">
         <div class="wrap header-row">
             <a href="index.html" class="brand logo-text"><span class="gold">Nhà</span>Nấm Nem</a>
             <nav class="nav">
-                <a href="index.html" class="active">Trang Chủ</a>
-                <a href="products-page.html">Sản Phẩm</a>
-                <a href="#contact">Liên Hệ</a>
+                <a href="index.html">Trang Chủ</a>
+                <a href="products-page.html" class="active">Sản Phẩm</a>
+                <a href="index.html#contact">Liên Hệ</a>
                 <a href="#" id="cart-icon" aria-label="Giỏ hàng">
                     🛒 <span id="cart-count">0</span>
                 </a>
@@ -30,60 +30,18 @@
     <nav class="mobile-nav">
         <a href="index.html">Trang Chủ</a>
         <a href="products-page.html">Sản Phẩm</a>
-        <a href="#contact">Liên Hệ</a>
+        <a href="index.html#contact">Liên Hệ</a>
     </nav>
 
     <main>
-        <section class="hero">
-            <div class="hero-inner">
-                <h1 class="hero-title">Sạch Lành Tự Nhiên, Chuẩn Ngon Vị Việt</h1>
-                <p class="hero-sub">Nấm hữu cơ được nuôi trồng với tâm huyết, mang đến những bữa ăn bổ dưỡng cho gia đình bạn.</p>
-                <div class="hero-cta">
-                    <a href="products-page.html" class="btn primary">Xem Sản Phẩm</a>
-                    <a href="#" class="btn ghost">Câu Chuyện Của Nấm</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="products" class="section bg-soft">
+        <section id="products" class="section">
             <div class="wrap">
-                <div class="section-head">
-                    <h2>Sản Phẩm Nổi Bật</h2>
-                    <p>Những sản phẩm tinh túy từ trang trại nấm hữu cơ của Nhà Nấm Nem.</p>
+                <div class="section-head" style="padding-top: 80px;">
+                    <h2>Tất Cả Sản Phẩm</h2>
+                    <p>Khám phá toàn bộ sản phẩm tinh túy từ trang trại nấm hữu cơ của Nhà Nấm Nem.</p>
                 </div>
-                <div class="product-carousel-viewport">
-                    <div class="cards product-carousel-track" id="product-list">
-                        <!-- Products will be dynamically loaded here -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="wrap">
-                 <div class="section-head">
-                    <h2>Liên Hệ & Đặt Hàng</h2>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Ghé thăm chúng tôi</h3>
-                        <p>Trang trại: Thôn ABC, Xã XYZ, Đà Lạt, Lâm Đồng</p>
-                        <p>Email: info@nhanamnem.vn</p>
-                        <p>Hotline: 0912 345 678</p>
-                        <div class="socials">
-                            <a href="#">f</a> <a href="#">i</a> <a href="#">z</a>
-                        </div>
-                    </div>
-                    <form class="contact-form">
-                        <h3>Gửi tin nhắn cho chúng tôi</h3>
-                        <label for="contact-name" class="sr-only">Họ tên</label>
-                        <input id="contact-name" type="text" placeholder="Họ tên" required>
-                        <label for="contact-email" class="sr-only">Email</label>
-                        <input id="contact-email" type="email" placeholder="Email" required>
-                        <label for="contact-message" class="sr-only">Nội dung tin nhắn</label>
-                        <textarea id="contact-message" rows="5" placeholder="Nội dung tin nhắn"></textarea>
-                        <button type="submit" class="btn primary">Gửi đi</button>
-                    </form>
+                <div class="cards" id="product-list">
+                    <!-- Products will be dynamically loaded here -->
                 </div>
             </div>
         </section>

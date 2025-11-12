@@ -1,11 +1,117 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productList = document.getElementById('product-list');
+    const isProductsPage = document.body.classList.contains('products-page');
     const heroSection = document.querySelector('.hero');
 
             // Set hero banner
             if (heroSection && typeof bannerImage !== 'undefined') {
                 heroSection.style.backgroundImage = `url('${bannerImage}')`;
             }
+
+            // --- Logic cho trang sản phẩm (Grid Layout + Zoom) ---
+            const setupProductGrid = () => {
+                if (!productList || typeof products === 'undefined') return;
+
+                // Render tất cả sản phẩm
+                products.forEach(product => {
+                    const card = document.createElement('article');
+                    card.className = 'card view-details'; 
+                    card.dataset.id = product.id;
+                    card.dataset.productId = product.id;
+
+                    const imageUrl = (product.images && product.images.length > 0) ? product.images[0] : 'image/placeholder.jpg';
+
+                    card.innerHTML = `
+                        <div class="card-media">
+                            <img src="${imageUrl}" alt="${product.name}">
+                        </div>
+                        <div class="card-body">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <p><strong>Giá: ${product.price.toLocaleString('vi-VN')}đ</strong></p>
+                            <button class="btn primary add-to-cart">Thêm vào giỏ</button>
+                        </div>
+                    `;
+                    productList.appendChild(card);
+                });
+
+                // Kích hoạt lại hiệu ứng zoom
+                function moveLens(e) {
+                    const lens = e.currentTarget.querySelector('.img-zoom-lens');
+                    const result = e.currentTarget.parentElement.querySelector('.img-zoom-result');
+                    const img = e.currentTarget.querySelector('img');
+                    if (!lens || !result || !img) return;
+
+                    e.preventDefault();
+                    
+                    const pos = getCursorPos(e, img);
+                    let x = pos.x - (lens.offsetWidth / 2);
+                    let y = pos.y - (lens.offsetHeight / 2);
+
+                    if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
+                    if (x < 0) { x = 0; }
+                    if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
+                    if (y < 0) { y = 0; }
+
+                    lens.style.left = x + "px";
+                    lens.style.top = y + "px";
+
+                    const cx = result.offsetWidth / lens.offsetWidth;
+                    const cy = result.offsetHeight / lens.offsetHeight;
+                    result.style.backgroundPosition = `-${x * cx}px -${y * cy}px`;
+                }
+
+                function getCursorPos(e, img) {
+                    const a = img.getBoundingClientRect();
+                    const x = e.pageX - a.left - window.pageXOffset;
+                    const y = e.pageY - a.top - window.pageYOffset;
+                    return { x, y };
+                }
+
+                productList.addEventListener('mouseover', (e) => {
+                    if (window.innerWidth < 1024) return; // Chỉ chạy trên desktop
+                    const cardMedia = e.target.closest('.card-media');
+                    if (!cardMedia) return;
+
+                    let result = cardMedia.parentElement.querySelector('.img-zoom-result');
+                    if (!result) {
+                        result = document.createElement("DIV");
+                        result.setAttribute("class", "img-zoom-result");
+                        cardMedia.parentElement.appendChild(result);
+                    }
+
+                    let lens = cardMedia.querySelector('.img-zoom-lens');
+                    if (!lens) {
+                        lens = document.createElement("DIV");
+                        lens.setAttribute("class", "img-zoom-lens");
+                        cardMedia.insertBefore(lens, cardMedia.firstChild);
+                    }
+                    
+                    const img = cardMedia.querySelector('img');
+                    result.style.display = 'block';
+                    lens.style.display = 'block';
+                    result.style.backgroundImage = `url('${img.src}')`;
+                    const cx = result.offsetWidth / lens.offsetWidth;
+                    const cy = result.offsetHeight / lens.offsetHeight;
+                    result.style.backgroundSize = `${img.width * cx}px ${img.height * cy}px`;
+
+                    cardMedia.addEventListener('mousemove', moveLens);
+                });
+
+                productList.addEventListener('mouseout', (e) => {
+                    if (window.innerWidth < 1024) return;
+                    const cardMedia = e.target.closest('.card-media');
+                    if (!cardMedia) return;
+
+                    const result = cardMedia.parentElement.querySelector('.img-zoom-result');
+                    const lens = cardMedia.querySelector('.img-zoom-lens');
+
+                    if (result) result.style.display = 'none';
+                    if (lens) lens.style.display = 'none';
+                    
+                    cardMedia.removeEventListener('mousemove', moveLens);
+                });
+            };
 
             // --- Product Carousel Logic ---
             const setupProductCarousel = () => {
@@ -63,7 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 productList.style.animation = `scroll-horizontal ${animationDuration}s linear infinite`;
             };
 
-            setupProductCarousel();
+            if (isProductsPage) {
+                setupProductGrid();
+            } else {
+                setupProductCarousel();
+            }
 
             // --- Product Detail Modal Logic ---
             const productModal = document.getElementById('product-detail-modal');
@@ -149,6 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             productList.style.animationPlayState = 'running'; // Resume carousel
                         }, 1000);
                     }
+                } else if (e.target.closest('.img-zoom-lens')) {
+                    // Nếu click vào vùng zoom trên trang sản phẩm thì không làm gì cả
+                    return;
                 } else {
                     // Clicked on the card but not the "Thêm vào giỏ" button, so open modal
                     const productId = viewDetailsTrigger.dataset.productId;
@@ -201,9 +314,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.scrollY > 50) {
                     header.classList.add('solid');
                 } else {
-                    header.classList.remove('solid');
+                    // Chỉ xóa class 'solid' nếu không phải là trang sản phẩm
+                    if (!isProductsPage) {
+                        header.classList.remove('solid');
+                    }
                 }
             });
+
+            // Luôn hiển thị header với nền tối trên trang sản phẩm
+            if (isProductsPage) {
+                header.classList.add('solid');
+            }
 
             menuBtn.addEventListener('click', () => {
                 mobileNav.classList.toggle('open');

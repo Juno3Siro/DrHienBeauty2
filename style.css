@@ -76,8 +76,8 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 .features li{margin-bottom:8px}
 
 /* Cards */
-/* Vô hiệu hóa layout grid cũ cho trang chủ */
-/* .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px} */
+/* Áp dụng layout grid cho trang sản phẩm */
+.products-page .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
 
 .card{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.9,.3,1),box-shadow .32s;position: relative; }
 .card:hover{transform:translateY(-12px);box-shadow:0 30px 60px rgba(0,0,0,.14);z-index: 10;}
