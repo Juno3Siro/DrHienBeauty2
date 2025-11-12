@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Disable button and show feedback
     submitButton.disabled = true;
-    submitButton.innerHTML = '<span class="spinner"></span> Đang gửi...'; // Thêm spinner
+    submitButton.textContent = 'Đang gửi...';
 
     // Prepare data for Google Sheet
     const orderTimestamp = new Date().toLocaleString('vi-VN');
@@ -138,17 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
       rows: sheetData
     };
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIopFQleMz6TDqTqyUnVeWQeItVEPmpcf7F3Xj8dhUKcWbGAIx78GMYtCxrSx5nG2Hgw/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwQo72gHCloPGcvO1-M9ol00ZQCYzS1-JDVethk5BLYYuqytJnkTgwg75y-78cshXl/exec";
 
     fetch(SCRIPT_URL, {
+      redirect: "follow", // Important for handling Google Script redirects
       method: 'POST',
-      mode: 'no-cors', // Bắt buộc để tránh lỗi CORS
       body: JSON.stringify(payload),
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' } // Gửi dưới dạng text để Apps Script đọc được
+      headers: { 'Content-Type': 'application/json' }
     })
     .then(response => {
-        // Google Apps Script thường chuyển hướng. Một yêu cầu thành công có thể không trả về JSON.
-        // Chúng ta có thể giả định là thành công nếu không có lỗi mạng.
+        // Google Apps Script often redirects. A successful submission might not return a clean JSON response.
+        // We can assume success if the request doesn't throw a network error.
         alert(`Cảm ơn ${customerName}, đơn hàng của bạn đã được gửi thành công! Nhà Nấm Nem sẽ liên hệ với bạn sớm nhất.`);
         
         cart.length = 0;
@@ -169,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .finally(() => {
         // Re-enable button
-        submitButton.disabled = false; // Luôn re-enable nút
-        submitButton.innerHTML = 'Xác nhận đơn hàng'; // Đặt lại nội dung nút
+        submitButton.disabled = false;
+        submitButton.textContent = 'Xác nhận đơn hàng';
     });
   };
 
@@ -205,23 +205,18 @@ document.addEventListener('DOMContentLoaded', () => {
   cartItemsContainer.addEventListener('click', (e) => {
     const target = e.target;
     const id = target.dataset.id;
-
     if (!id) return;
-
-    // Chuyển đổi ID từ chuỗi (string) sang số (number) để so sánh chính xác
-    const numericId = parseInt(id);
-    const item = cart.find(cartItem => cartItem.id === numericId);
-
+    const item = cart.find(cartItem => cartItem.id === id);
     if (!item) return;
 
     if (target.classList.contains('remove-from-cart')) {
-      cart = cart.filter(cartItem => cartItem.id !== numericId);
+      cart = cart.filter(cartItem => cartItem.id !== id);
     } else if (target.classList.contains('plus-btn')) {
       item.quantity++;
     } else if (target.classList.contains('minus-btn')) {
       item.quantity--;
       if (item.quantity === 0) {
-        cart = cart.filter(cartItem => cartItem.id !== numericId);
+        cart = cart.filter(cartItem => cartItem.id !== id);
       }
     }
     updateCart();
