@@ -48,9 +48,9 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 }
 
 /* Hero */
-.hero{position:relative;height:88vh;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-top:12px;background-image:url('https://png.pngtree.com/thumb_back/fw800/background/20251022/pngtree-glass-dropper-bottles-on-natural-textile-image_19957951.webp');background-size:cover;background-position:center}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(63,51,40,.38),rgba(255,255,255,0));mix-blend-mode:multiply}
-.hero-inner{position:relative;z-index:10;color:var(--cream);max-width:980px;padding:0 20px}
+.hero{position:relative;height:88vh;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-top:12px;background-size:cover;background-position:center}
+.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:1}
+.hero-inner{position:relative;z-index:2;color:var(--cream);max-width:980px;padding:0 20px}
 .hero-title{font-family:Playfair Display,serif;font-size:2.6rem;font-weight:700;margin-bottom:14px;letter-spacing:.4px;text-shadow:0 6px 18px rgba(0,0,0,.18)}
 .hero-sub{font-size:1.05rem;margin-bottom:22px;color:rgba(249,246,241,.95)}
 .hero-cta{display:inline-flex;gap:14px;justify-content:center;align-items:center}
@@ -77,9 +77,10 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 
 /* Cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
-.card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.9,.3,1),box-shadow .32s}
-.card:hover{transform:translateY(-12px);box-shadow:0 30px 60px rgba(0,0,0,.14)}
-.card-media img{width:100%;height:220px;object-fit:cover}
+.card{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.9,.3,1),box-shadow .32s;position: relative;}
+.card:hover{transform:translateY(-12px);box-shadow:0 30px 60px rgba(0,0,0,.14);z-index: 10;}
+.card-media{background-color:var(--soft); border-radius: 12px 12px 0 0; overflow: hidden;}
+.card-media img{width:100%;height:220px;object-fit:contain}
 .card-body{padding:18px}
 
 /* Testimonials */
@@ -311,4 +312,129 @@ header.solid{background:var(--brown);color:var(--cream);box-shadow:0 10px 30px r
 
 .cart-item {
   grid-template-columns: 80px 1fr 110px auto;
+}
+
+/* Product Detail Modal Styles */
+.product-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  backdrop-filter: blur(8px);
+}
+
+.product-modal-content {
+  background: var(--card);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  position: relative;
+  padding: 32px;
+}
+
+.product-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.product-modal-gallery .main-image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.product-modal-gallery #product-modal-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.gallery-nav:hover {
+  background: rgba(0,0,0,0.7);
+}
+.gallery-nav.prev { left: 10px; }
+.gallery-nav.next { right: 10px; }
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.thumbnail-container img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s;
+}
+
+.thumbnail-container img.active {
+  border-color: var(--gold);
+}
+
+.product-modal-details h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown);
+  margin-bottom: 12px;
+}
+
+.product-modal-details p {
+  margin-bottom: 12px;
+}
+
+/* Image Magnifier Styles */
+.card-media {
+  position: relative;
+  cursor: crosshair;
+  overflow: hidden; /* Hide parts of the lens that go outside */
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  width: 80px; /* Smaller lens = higher zoom */
+  height: 80px;
+  z-index: 10;
+  background-color: rgba(255,255,255,0.4);
+  display: none; /* Initially hidden */
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  width: 400px; /* Larger result window */
+  height: 400px;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 10px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  background-repeat: no-repeat;
+  display: none;
+  pointer-events: none; /* Prevent result from capturing mouse events */
 }
